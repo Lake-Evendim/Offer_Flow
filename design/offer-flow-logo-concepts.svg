@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="route-line" x1="35" y1="120" x2="145" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3F776C"/>
+      <stop offset="1" stop-color="#D48A4A"/>
+    </linearGradient>
+    <linearGradient id="negative-space" x1="31" y1="22" x2="149" y2="158" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#173C3A"/>
+      <stop offset="1" stop-color="#2E806E"/>
+    </linearGradient>
+    <linearGradient id="orbit-gem-left" x1="70" y1="22" x2="101" y2="160" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E7F3EE"/>
+      <stop offset="1" stop-color="#77AA9E"/>
+    </linearGradient>
+    <linearGradient id="orbit-gem-right" x1="120" y1="22" x2="87" y2="160" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BBDCD1"/>
+      <stop offset="1" stop-color="#2E665E"/>
+    </linearGradient>
+    <style>
+      .concept-name { font: 700 21px Inter, "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #182A27; letter-spacing: .2px; }
+      .concept-method { font: 600 15px Inter, "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #587069; }
+      .concept-note { font: 400 14px Inter, "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #7B817E; }
+      .round-line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="900" fill="#F5F2EA"/>
+
+  <!-- 01 Minimal line: briefcase plus a single progress route. -->
+  <g transform="translate(110 48)">
+    <path class="round-line" d="M54 47V37c0-8 6-14 14-14h44c8 0 14 6 14 14v10" stroke="#173D3A" stroke-width="7"/>
+    <rect x="20" y="47" width="140" height="98" rx="20" fill="none" stroke="#173D3A" stroke-width="7"/>
+    <path class="round-line" d="M23 76h134" stroke="#173D3A" stroke-width="5" opacity=".32"/>
+    <path class="round-line" d="M41 119C59 119 60 91 79 91s21 24 39 15c8-4 13-13 20-23" stroke="url(#route-line)" stroke-width="6"/>
+    <circle cx="41" cy="119" r="7" fill="#F5F2EA" stroke="#3F776C" stroke-width="5"/>
+    <circle cx="79" cy="91" r="7" fill="#F5F2EA" stroke="#438C7B" stroke-width="5"/>
+    <path class="round-line" d="m130 82 8 8 16-22" stroke="#D48A4A" stroke-width="7"/>
+  </g>
+  <text class="concept-name" x="200" y="292" text-anchor="middle">进阶轨迹</text>
+  <text class="concept-method" x="200" y="323" text-anchor="middle">极简线条＋投递路径</text>
+  <text class="concept-note" x="200" y="352" text-anchor="middle">一条路线串联求职进度</text>
+
+  <!-- 02 Monogram: O as pipeline, F as forward motion. -->
+  <g transform="translate(510 47)">
+    <path class="round-line" d="M135 55A65 65 0 1 0 136 126" stroke="#172B45" stroke-width="12"/>
+    <path class="round-line" d="M72 137V46h61" stroke="#172B45" stroke-width="12"/>
+    <path class="round-line" d="M73 87h48" stroke="#3F7D78" stroke-width="11"/>
+    <path d="M132 46h22l-13-14" fill="none" stroke="#D08A47" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="137" cy="126" r="7" fill="#D08A47"/>
+    <circle cx="132" cy="55" r="4.5" fill="#F5F2EA" stroke="#172B45" stroke-width="4"/>
+  </g>
+  <text class="concept-name" x="600" y="292" text-anchor="middle">OF 进阶字母</text>
+  <text class="concept-method" x="600" y="323" text-anchor="middle">Monogram＋阶段节点</text>
+  <text class="concept-note" x="600" y="352" text-anchor="middle">Offer与Flow凝成一个符号</text>
+
+  <!-- 03 Negative space: a portfolio opens into an upward result arrow. -->
+  <g transform="translate(910 48)">
+    <path d="M90 10 158 49v78l-68 39-68-39V49Z" fill="url(#negative-space)"/>
+    <path d="M57 78c0-8 6-14 14-14h38c8 0 14 6 14 14v43c0 8-6 14-14 14H71c-8 0-14-6-14-14Z" fill="#F5F2EA"/>
+    <path d="M75 64V53c0-5 4-9 9-9h12c5 0 9 4 9 9v11" fill="none" stroke="#F5F2EA" stroke-width="8" stroke-linecap="round"/>
+    <path d="M90 123V83m0 0-15 16m15-16 15 16" fill="none" stroke="#255D56" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M58 92h64" fill="none" stroke="#255D56" stroke-width="5" opacity=".28"/>
+    <circle cx="90" cy="123" r="5" fill="#D8914C"/>
+  </g>
+  <text class="concept-name" x="1000" y="292" text-anchor="middle">上岸窗口</text>
+  <text class="concept-method" x="1000" y="323" text-anchor="middle">负空间＋作品箱箭头</text>
+  <text class="concept-note" x="1000" y="352" text-anchor="middle">从投递入口走向上升结果</text>
+
+  <!-- 04 Geometric order: kanban stages rise toward an offer marker. -->
+  <g transform="translate(108 490)">
+    <rect x="17" y="91" width="30" height="55" rx="8" fill="#365B78"/>
+    <rect x="55" y="70" width="30" height="76" rx="8" fill="#47768D"/>
+    <rect x="93" y="47" width="30" height="99" rx="8" fill="#3E8A79"/>
+    <rect x="131" y="24" width="30" height="122" rx="8" fill="#245B53"/>
+    <path class="round-line" d="M31 82 69 60l38-23 39-23" stroke="#D28A47" stroke-width="5"/>
+    <path d="m146 5 5 10-5 10-5-10Z" fill="#F5F2EA" stroke="#D28A47" stroke-width="4" stroke-linejoin="round"/>
+    <circle cx="31" cy="82" r="5" fill="#F5F2EA" stroke="#D28A47" stroke-width="4"/>
+    <circle cx="69" cy="60" r="5" fill="#F5F2EA" stroke="#D28A47" stroke-width="4"/>
+    <circle cx="107" cy="37" r="5" fill="#F5F2EA" stroke="#D28A47" stroke-width="4"/>
+  </g>
+  <text class="concept-name" x="200" y="734" text-anchor="middle">流程阶梯</text>
+  <text class="concept-method" x="200" y="765" text-anchor="middle">几何秩序＋看板阶段</text>
+  <text class="concept-note" x="200" y="794" text-anchor="middle">四步推进直达Offer</text>
+
+  <!-- 05 Symmetric emblem: one outcome diamond and three interview orbits. -->
+  <g transform="translate(510 469)">
+    <g fill="none" stroke="#4F887E" stroke-linecap="round">
+      <ellipse cx="90" cy="47" rx="35" ry="11" stroke-width="5" opacity=".66"/>
+      <ellipse cx="90" cy="91" rx="76" ry="21" stroke="#B67843" stroke-width="7" opacity=".82"/>
+      <ellipse cx="90" cy="135" rx="33" ry="10" stroke-width="5" opacity=".62"/>
+    </g>
+    <path d="M90 11 127 91 90 169 53 91Z" fill="#DDECE6" stroke="#214E49" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M90 11V91H53Z" fill="url(#orbit-gem-left)"/>
+    <path d="M90 11 127 91H90Z" fill="url(#orbit-gem-right)"/>
+    <path d="M53 91h37v78Z" fill="#77AA9E"/>
+    <path d="M90 91h37l-37 78Z" fill="#356E66"/>
+    <path d="M90 11 127 91 90 169 53 91Z" fill="none" stroke="#214E49" stroke-width="6" stroke-linejoin="round"/>
+    <g fill="none" stroke-linecap="round">
+      <path d="M55 47c11 14 59 14 70 0" stroke="#5A968A" stroke-width="6"/>
+      <path d="M14 91c17 27 135 27 152 0" stroke="#B67843" stroke-width="8"/>
+      <path d="M57 135c10 13 56 13 66 0" stroke="#4F887E" stroke-width="6"/>
+    </g>
+  </g>
+  <text class="concept-name" x="600" y="734" text-anchor="middle">三环钻石</text>
+  <text class="concept-method" x="600" y="765" text-anchor="middle">对称徽记＋阶段光环</text>
+  <text class="concept-note" x="600" y="794" text-anchor="middle">三轮进阶聚合最终成果</text>
+
+  <!-- 06 Dynamic symbol: application cards converge on an offer spark. -->
+  <g transform="translate(908 483)">
+    <path class="round-line" d="M28 132C58 129 59 95 88 92s35-31 60-48" stroke="#294C68" stroke-width="7" opacity=".34"/>
+    <path class="round-line" d="M28 132C58 129 59 95 88 92s35-31 60-48" stroke="#4C8C85" stroke-width="4" stroke-dasharray="3 12"/>
+    <g transform="rotate(-9 34 126)">
+      <rect x="14" y="111" width="40" height="30" rx="7" fill="#E5EFEB" stroke="#294C68" stroke-width="5"/>
+      <path d="M23 122h22M23 130h14" stroke="#4C8C85" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <g transform="rotate(7 88 84)">
+      <rect x="68" y="69" width="40" height="30" rx="7" fill="#DCEAE6" stroke="#294C68" stroke-width="5"/>
+      <path d="M77 80h22M77 88h14" stroke="#4C8C85" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <path d="m151 15 7 21 21 7-21 7-7 21-7-21-21-7 21-7Z" fill="#D88C4A"/>
+    <path d="m151 29 3.5 10.5L165 43l-10.5 3.5L151 57l-3.5-10.5L137 43l10.5-3.5Z" fill="#F5F2EA"/>
+    <path class="round-line" d="m135 58 12-14" stroke="#294C68" stroke-width="6"/>
+  </g>
+  <text class="concept-name" x="1000" y="734" text-anchor="middle">卡片汇流</text>
+  <text class="concept-method" x="1000" y="765" text-anchor="middle">动态符号＋投递卡片</text>
+  <text class="concept-note" x="1000" y="794" text-anchor="middle">分散机会汇聚理想结果</text>
+</svg>

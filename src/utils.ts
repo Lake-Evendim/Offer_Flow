@@ -1,6 +1,6 @@
 import { differenceInCalendarDays, format, parseISO } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
-import type { Application, PipelineTemplate, Stage, StageKind } from './types'
+import type { Application, HistoryEntry, PipelineTemplate, Stage, StageKind } from './types'
 
 export const kindLabels: Record<StageKind, string> = {
   prospect: '待投递',
@@ -11,7 +11,21 @@ export const kindLabels: Record<StageKind, string> = {
   closed: '已结束',
 }
 
-export const priorityLabels = { high: '高优先级', medium: '中优先级', low: '低优先级' }
+export const priorityLabels = { high: '高', medium: '中', low: '低' }
+
+export function normalizeHistory(history: HistoryEntry[]) {
+  const ordered = [...history].sort((a, b) => a.date.localeCompare(b.date))
+  return ordered.reduce<HistoryEntry[]>((result, entry) => {
+    const previous = result.at(-1)
+    if (previous?.stageId === entry.stageId) {
+      if (!previous.note && entry.note) result[result.length - 1] = { ...previous, note: entry.note }
+      return result
+    }
+    if (result.some((item) => item.id === entry.id)) return result
+    result.push(entry)
+    return result
+  }, [])
+}
 
 export function getPipeline(pipelines: PipelineTemplate[], pipelineId: string) {
   return pipelines.find((item) => item.id === pipelineId) ?? pipelines[0]

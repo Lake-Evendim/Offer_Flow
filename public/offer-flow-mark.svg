@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Offer Flow</title>
+  <desc id="desc">由白色切角 O 与松针青 Fehu 式 F 构成的字母标志</desc>
+
+  <!-- Angular O: clean white, with no internal texture. -->
+  <path
+    d="M38 16 29 7H16L7 16V48L16 57H29L38 48Z"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="6.4"
+    stroke-linecap="square"
+    stroke-linejoin="bevel"
+  />
+
+  <!-- F stays above O, so its colour owns every shared segment and intersection. -->
+  <g
+    fill="none"
+    stroke="#73D7C3"
+    stroke-width="7.3"
+    stroke-linecap="square"
+    stroke-linejoin="bevel"
+  >
+    <path d="M38 48V4.5"/>
+    <path d="M38 12.5 59.5 5.5"/>
+    <path d="M38 29.5 56.5 23.5"/>
+  </g>
+</svg>
