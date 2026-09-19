@@ -180,12 +180,75 @@ function OfferMeteor({ seed }: { seed: string }) {
   />
 }
 
+type OfferStar = {
+  id: number
+  x: number
+  y: number
+  size: number
+  opacity: number
+  tone: 'mint' | 'ice' | 'violet'
+  bright: boolean
+}
+
+function offerStarField(seed: string, count = 21): OfferStar[] {
+  let hash = stableVisualHash(`${seed}-stars`)
+  const next = () => {
+    hash += 0x6D2B79F5
+    let value = hash
+    value = Math.imul(value ^ (value >>> 15), value | 1)
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61)
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296
+  }
+  const stars: OfferStar[] = []
+
+  for (let index = 0; index < count; index += 1) {
+    let x = 38 + next() * 58
+    let y = 5 + next() * 68
+    let attempts = 0
+    while (attempts < 18 && stars.some((star) => {
+      const distanceX = star.x - x
+      const distanceY = (star.y - y) * .78
+      return Math.hypot(distanceX, distanceY) < 5.6
+    })) {
+      x = 38 + next() * 58
+      y = 5 + next() * 68
+      attempts += 1
+    }
+
+    const brightness = next()
+    stars.push({
+      id: index,
+      x,
+      y,
+      size: brightness > .89 ? 1.7 + next() * .55 : .55 + next() * .85,
+      opacity: .25 + next() * .58,
+      tone: next() > .82 ? 'violet' : next() > .58 ? 'mint' : 'ice',
+      bright: brightness > .89,
+    })
+  }
+
+  return stars
+}
+
 function OfferAuroraScene({ detail = false, meteorSeed }: { detail?: boolean; meteorSeed?: string }) {
   if (detail) {
-    const sceneId = `offer-aurora-${stableVisualHash(meteorSeed ?? 'detail')}`
+    const seed = meteorSeed ?? 'detail'
+    const sceneId = `offer-aurora-${stableVisualHash(seed)}`
+    const stars = offerStarField(seed)
     return (
       <span className="offer-detail-scene" aria-hidden="true">
-        <i className="offer-detail-stars" />
+        <span className="offer-detail-stars">
+          {stars.map((star) => <i
+            className={`offer-detail-star star-${star.tone} ${star.bright ? 'star-bright' : ''}`}
+            key={star.id}
+            style={{
+              '--offer-star-x': `${star.x.toFixed(2)}%`,
+              '--offer-star-y': `${star.y.toFixed(2)}%`,
+              '--offer-star-size': `${star.size.toFixed(2)}px`,
+              '--offer-star-opacity': star.opacity.toFixed(2),
+            } as React.CSSProperties}
+          />)}
+        </span>
         <svg className="offer-detail-ribbons" viewBox="0 0 800 160" preserveAspectRatio="none">
           <defs>
             <linearGradient id={`${sceneId}-gradient`} x1="0" y1="0" x2="800" y2="0" gradientUnits="userSpaceOnUse">
@@ -752,6 +815,12 @@ function App() {
     <div className="app-shell" onPointerMove={handleLiquidPointer}>
       <div className="ambient-layer" aria-hidden="true"><i /><i /><i /></div>
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+        <div className="sidebar-bottom-aurora" aria-hidden="true">
+          <i className="sidebar-aurora-haze" />
+          <i className="sidebar-aurora-ribbon sidebar-aurora-ribbon-primary" />
+          <i className="sidebar-aurora-ribbon sidebar-aurora-ribbon-secondary" />
+          <i className="sidebar-aurora-horizon" />
+        </div>
         <div className="brand"><Logo /><span>Offer Flow</span></div>
         <button className="sidebar-create" onClick={() => { setModal({ open: true }); setSidebarOpen(false) }}>
           <span className="sidebar-create-icon"><Plus size={19} /></span>
@@ -1487,7 +1556,7 @@ function Board({ data, openApplication, updateApplication }: PageProps) {
         </div>
       </div>
       {expandedStage && (
-        <div className="stage-overview-layer" role="presentation" onMouseDown={() => setExpandedStageId(null)}>
+        <div className={`stage-overview-layer stage-${expandedStage.kind}`} role="presentation" onMouseDown={() => setExpandedStageId(null)}>
           <section className={`stage-overview-panel stage-${expandedStage.kind}`} role="dialog" aria-modal="true" aria-labelledby="stage-overview-title" onMouseDown={(event) => event.stopPropagation()}>
             <header className="stage-overview-head">
               <div><span className="stage-overview-kicker"><i style={{ background: boardStageColor(expandedStage) }} />阶段详情</span><h2 id="stage-overview-title">{expandedStage.name}</h2><p>{expandedStageItems.length} 个岗位机会，按更新时间由早到晚排列。</p></div>
