@@ -17,6 +17,7 @@ import {
 import { zhCN } from 'date-fns/locale'
 import type { AppData, Application, PipelineTemplate, Stage, StageKind, ViewKey } from './types'
 import { loadData, resetData, saveData } from './storage'
+import { LiquidGlass } from './LiquidGlass'
 import {
   average, escapeCsv, fullDate, getPipeline, getStage, isActive, kindLabels, priorityLabels,
   normalizeHistory, relativeDue, shortDate, uid,
@@ -690,6 +691,7 @@ function App() {
     ].filter((surface, index, items): surface is HTMLElement => Boolean(surface) && items.indexOf(surface) === index)
 
     surfaces.forEach((surface) => {
+      if (surface.classList.contains('liquid-glass')) return
       const bounds = surface.getBoundingClientRect()
       surface.style.setProperty('--glass-x', `${event.clientX - bounds.left}px`)
       surface.style.setProperty('--glass-y', `${event.clientY - bounds.top}px`)
@@ -946,7 +948,7 @@ function Overview({ data, openApplication, setView }: PageProps & { setView: (vi
         <MetricCard label="已获 Offer" value={offers.length} delta={`转化率 ${offerRate}%`} icon={<Sparkles size={19} />} accent />
       </section>
 
-      <section className="panel agenda-panel">
+      <LiquidGlass className="panel agenda-panel">
         <SectionHeader eyebrow="NEXT ACTIONS" title="接下来要做" action={<button className="text-button" onClick={() => setView('schedule')}>查看日程 <ArrowRight size={14} /></button>} />
         <div className="agenda-list">
           {upcoming.map((item) => {
@@ -961,9 +963,9 @@ function Overview({ data, openApplication, setView }: PageProps & { setView: (vi
             )
           })}
         </div>
-      </section>
+      </LiquidGlass>
 
-      <section className="panel flow-snapshot">
+      <LiquidGlass className="panel flow-snapshot">
         <SectionHeader eyebrow="PIPELINE" title="当前流程分布" action={<button className="text-button" onClick={() => setView('analytics')}>查看分析 <ArrowRight size={14} /></button>} />
         <div className="flow-bars">
           {kindCounts.map((item) => (
@@ -978,9 +980,9 @@ function Overview({ data, openApplication, setView }: PageProps & { setView: (vi
           <div><span>面试阶段占比</span><strong>{Math.round(interviews.length / Math.max(1, active.length) * 100)}%</strong></div>
           <div><span>已安排下一步</span><strong>{active.filter((item) => item.nextActionAt).length}/{active.length}</strong></div>
         </div>
-      </section>
+      </LiquidGlass>
 
-      <section className="panel focus-panel">
+      <LiquidGlass className="panel focus-panel">
         <SectionHeader eyebrow="FOCUS" title="重点推进" action={<span className="subtle-count">{focus.length} 个高优机会</span>} />
         <div className="focus-list">
           {focus.map((item) => {
@@ -993,19 +995,19 @@ function Overview({ data, openApplication, setView }: PageProps & { setView: (vi
             )
           })}
         </div>
-      </section>
+      </LiquidGlass>
 
-      <section className="panel rhythm-panel">
+      <LiquidGlass className="panel rhythm-panel">
         <SectionHeader eyebrow="RHYTHM" title="本周节奏" />
         <div className="rhythm-score"><div className="score-ring" style={{ '--score': `${rhythmScore}%` } as React.CSSProperties}><span>{rhythmScore}</span></div><div className="score-copy"><strong>{rhythmStatus}</strong><p>{highWithoutNextAction ? `${highWithoutNextAction} 个高优机会尚未设置下一步` : '高优先级机会均已设置下一步'}，今天有 {todayTasks} 项安排。</p></div></div>
         <div className="rhythm-stats"><div><span>本周安排</span><strong>{scheduledThisWeek}</strong></div><div><span>平均推进</span><strong>{averageResponseDays.toFixed(1)} 天</strong></div></div>
-      </section>
+      </LiquidGlass>
     </div>
   )
 }
 
 function MetricCard({ label, value, delta, icon, accent = false, suffix = '' }: { label: string; value: number; delta: string; icon: ReactNode; accent?: boolean; suffix?: string }) {
-  return <div className={`metric-card ${accent ? 'accent' : ''}`}><div className="metric-top"><span>{label}</span><i>{icon}</i></div><div className="metric-value">{String(value).padStart(2, '0')}<small>{suffix}</small></div><div className="metric-foot"><span>{delta}</span><ArrowUp size={13} /></div></div>
+  return <LiquidGlass as="div" className={`metric-card ${accent ? 'accent' : ''}`}><div className="metric-top"><span>{label}</span><i>{icon}</i></div><div className="metric-value">{String(value).padStart(2, '0')}<small>{suffix}</small></div><div className="metric-foot"><span>{delta}</span><ArrowUp size={13} /></div></LiquidGlass>
 }
 
 function OverflowTooltipText({ text, as = 'span', className = '' }: { text: string; as?: 'span' | 'strong'; className?: string }) {

@@ -1,0 +1,144 @@
+/* Rounded backdrop lens with quiet inner illumination and an elastic response. */
+.overview-page .liquid-glass {
+  --liquid-engagement: 0;
+  --liquid-x: 50%;
+  --liquid-y: 50%;
+  --liquid-transform: none;
+  --liquid-shadow-y: 12px;
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  transform: none;
+  transition: none;
+}
+
+/* Animate the material independently; the content and hit area never scale. */
+.overview-page .liquid-glass > .liquid-glass-material {
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  display: block;
+  pointer-events: none;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.48);
+  border-radius: 24px;
+  background: rgba(249,255,251,.30);
+  backdrop-filter: var(--liquid-lens, blur(20px)) saturate(135%);
+  -webkit-backdrop-filter: var(--liquid-lens, blur(20px)) saturate(135%);
+  box-shadow:
+    0 var(--liquid-shadow-y) 32px rgba(36,68,53,.095),
+    0 3px 8px rgba(40,67,55,.04),
+    inset 0 1px 1px rgba(255,255,255,.78),
+    inset 0 -1px 1px rgba(37,83,61,.12),
+    inset 1px 0 1px rgba(255,255,255,.32);
+  transform: var(--liquid-transform);
+  transform-origin: 50% 50%;
+  transition: border-color .25s ease;
+}
+
+/* Suppress the generic panel decorations so only the material layers render. */
+.overview-page .liquid-glass::before,
+.overview-page .liquid-glass::after { content: none; }
+.overview-page .liquid-glass:hover,
+.overview-page .metric-card.liquid-glass.accent,
+.overview-page .metric-card.liquid-glass.accent:hover {
+  background: none;
+  border-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  transform: none;
+}
+.overview-page .liquid-glass:hover > .liquid-glass-material {
+  transform: var(--liquid-transform);
+  border-color: rgba(255,255,255,.72);
+  box-shadow:
+    0 var(--liquid-shadow-y) 32px rgba(36,68,53,.095),
+    0 3px 8px rgba(40,67,55,.04),
+    inset 0 1px 1px rgba(255,255,255,.78),
+    inset 0 -1px 1px rgba(37,83,61,.12),
+    inset 1px 0 1px rgba(255,255,255,.32);
+}
+
+.overview-page .liquid-glass-material > .liquid-glass-optics,
+.overview-page .liquid-glass-material > .liquid-glass-rim {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.overview-page .liquid-glass-material > .liquid-glass-optics { z-index: 0; overflow: hidden; }
+.overview-page .liquid-glass > .liquid-glass-filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.liquid-glass-optics::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,.065);
+  opacity: var(--liquid-engagement);
+}
+.liquid-glass-optics::after {
+  content: none;
+}
+.overview-page .liquid-glass-material > .liquid-glass-rim {
+  z-index: 2;
+  padding: 1px;
+  background:
+    radial-gradient(ellipse 65% 70% at var(--liquid-x) var(--liquid-y), rgba(255,255,255,.70), transparent 85%),
+    linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,.06) 55%, rgba(41,82,61,.12));
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  opacity: calc(.5 + var(--liquid-engagement) * .3);
+}
+.overview-page .liquid-glass > :not(.liquid-glass-material):not(.liquid-glass-filter) { position: relative; z-index: 1; }
+
+.overview-page .metric-card.liquid-glass.accent > .liquid-glass-material {
+  border-color: rgba(222,251,236,.24);
+  background: rgba(39,98,77,.84);
+  box-shadow:
+    0 var(--liquid-shadow-y) 32px rgba(22,73,52,.19),
+    inset 0 1px 1px rgba(232,255,244,.30),
+    inset 0 -1px 2px rgba(3,36,24,.25);
+}
+.overview-page .metric-card.liquid-glass.accent:hover > .liquid-glass-material {
+  border-color: rgba(222,251,236,.38);
+  transform: var(--liquid-transform);
+}
+.overview-page .metric-card.liquid-glass.accent .liquid-glass-optics::before {
+  /* A green interaction tint preserves saturation on the dark material. */
+  background: rgba(39,154,101,.08);
+}
+.overview-page .metric-card.liquid-glass.accent .liquid-glass-rim {
+  background:
+    radial-gradient(ellipse 65% 70% at var(--liquid-x) var(--liquid-y), rgba(236,255,246,.64), transparent 85%),
+    linear-gradient(180deg, rgba(218,255,236,.30), rgba(218,255,236,.04) 55%, rgba(3,42,27,.20));
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .overview-page .liquid-glass > .liquid-glass-material,
+  .overview-page .liquid-glass:hover > .liquid-glass-material,
+  .overview-page .metric-card.liquid-glass.accent:hover > .liquid-glass-material { transform: none; }
+  .overview-page .liquid-glass > .liquid-glass-material { transition: none; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .overview-page .liquid-glass > .liquid-glass-material { background: #edf5ef; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .overview-page .metric-card.liquid-glass.accent > .liquid-glass-material { background: #2c6551; }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .overview-page .liquid-glass > .liquid-glass-material { background: rgba(246,251,248,.96); }
+  .overview-page .metric-card.liquid-glass.accent > .liquid-glass-material { background: #2c6551; }
+}
